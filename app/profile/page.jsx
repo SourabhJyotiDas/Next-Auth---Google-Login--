@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 
 export default function Profile() {
@@ -22,7 +23,7 @@ export default function Profile() {
             <div className="flex flex-col items-center justify-center p-10">
               <h1>{data.user.name}</h1>
               <p>{data.user.email}</p>
-              <img
+              <Image
                 className="rounded-full p-2 bg-orange-500"
                 src={data.user.image}
                 alt="profile picture"
