@@ -1,17 +1,43 @@
 import NextAuth from "next-auth/next"
-import GoogleProvider from "next-auth/providers/google"
-
+import GoogleProvider from "next-auth/providers/google";
+import axios from "axios"
+import { connectToDatabase } from "../../../../config/database";
+import User from "../../../../models/user"
+import { NextResponse } from "next/server";
 
 const authOptions = {
-   // session: {
-   //    strategy: "jwt"
-   // },
    providers: [
       GoogleProvider({
-         clientId: "915692287850-pcee4mbb0sfigrnb1mjikjnf0gik91ht.apps.googleusercontent.com",
-         clientSecret: "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"
+         clientId: process.env.GOOGLE_CLIENT_ID,
+         clientSecret: process.env.GOOGLE_CLIENT_SECRET
       })
    ],
+   callbacks: {
+      async signIn({ user, account }) {
+
+         if (account.provider === "google") {
+
+            const { name, email, image } = user;
+
+            try {
+
+               await connectToDatabase();
+
+               let userExists = await User.findOne({ email });
+
+               if (!userExists) {
+                  await axios.post(`${process.env.FRONTENDURL}/api/googleauth`, { name, email, image })
+                  return user;
+               }
+
+            } catch (error) {
+               return NextResponse.json({ message: error.message }, { status: 500 })
+            }
+         }
+         return user;
+      }
+   }
+
 };
 
 const handler = NextAuth(authOptions);

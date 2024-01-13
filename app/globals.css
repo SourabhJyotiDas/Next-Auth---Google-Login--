@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.heighlight{
+   font-family: 'Dancing Script', 'Helvetica Neue';
+}
+
+.scrollbar-none::-webkit-scrollbar {
+   display: none;
+ }

@@ -1,10 +1,20 @@
-import Login from "./login/page";
+
+
+import Menu from "./components/Menu"
+import Homepage from "./components/Homepage"
+import SpecialOffer from "./components/SpecialOffer.jsx"
+import Login from "./login/page"
+import Profile from "./profile/page"
 
 export default async function Home() {
 
   return (
-    <main >
-      <Login />
-    </main>
+    <>
+      {/* <Homepage />
+      <Menu />
+      <SpecialOffer /> */}
+      <Login/>
+      <Profile/>
+    </>
   )
 }
