@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 export const connectToDatabase = async () => {
    try {
-      await mongoose.connect("mongodb://localhost:27017/NextAuth");
+      await mongoose.connect("mongodb://localhost:27017/NextAuthNew");
       console.log("Mongoose Connected Successfully");
    } catch (error) {
       console.log(error.message);
